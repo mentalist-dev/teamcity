@@ -16,20 +16,15 @@ services:
       - 8111:8111
 
   agent:
-    image: jetbrains/teamcity-agent
     restart: unless-stopped
     build: 
       context: .
       dockerfile: dockerfile-agent
-      labels:
-        - "teamcity-agent"
     environment:
       - SERVER_URL=http://teamcity:8111
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - ./files/agent1:/data/teamcity_agent/conf
     depends_on:
       - teamcity
