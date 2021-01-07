@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  teamcity:
+    image: jetbrains/teamcity-server
+    container_name: teamcity-server
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./files/server/data:/data/teamcity_server/datadir
+      - ./files/server/logs:/opt/teamcity/logs
+    ports:
+      - 8111:8111
+
+  agent1:
+    image: jetbrains/teamcity-agent
+    container_name: teamcity-agent-1
+    build: 
+      context: .
+      dockerfile: dockerfile-agent
+    environment:
+      - SERVER_URL=http://teamcity:8111
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./files/agent1:/data/teamcity_agent/conf
+    depends_on:
+      - teamcity
+
+  agent2:
+    container_name: teamcity-agent-2
+    build: 
+      context: .
+      dockerfile: dockerfile-agent
+    environment:
+      - SERVER_URL=http://teamcity:8111
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./files/agent2:/data/teamcity_agent/conf
+    depends_on:
+      - teamcity
