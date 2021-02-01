@@ -2,9 +2,11 @@ version: '3'
 
 services:
   teamcity:
-    image: jetbrains/teamcity-server
-    container_name: teamcity-server
     restart: unless-stopped
+    image: jetbrains/teamcity-server:2020.2.2
+    container_name: teamcity-server
+    environment:
+      - TEAMCITY_HTTPS_PROXY_ENABLED=true
     ulimits:
       memlock:
         soft: -1
