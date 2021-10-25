@@ -3,7 +3,7 @@ version: '3'
 services:
   teamcity:
     restart: unless-stopped
-    image: jetbrains/teamcity-server:2020.2.2
+    image: jetbrains/teamcity-server:2021.2
     container_name: teamcity-server
     environment:
       - TEAMCITY_HTTPS_PROXY_ENABLED=true

@@ -10,7 +10,15 @@ docker-compose --project-name teamcity up -d --scale agent=5
 
 docker-compose --project-name teamcity up -d --build --force-recreate
 
+# JetBrains Docker images
+
+https://github.com/JetBrains/teamcity-docker-images
+
 # Change Log
+
+## 2021-10-25
+
+- update image versions
 
 ## 2021-02-01
 
