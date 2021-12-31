@@ -31,6 +31,20 @@ Password: postgres
 
 Attention: please do not expose PostgreSQL and PgAdmin endpoints to public unless you really know what are you doing (and of course use more safe passwords).
 
+## Drop test_ databases
+
+```
+CREATE EXTENSION IF NOT EXISTS dblink;
+
+DO $$ DECLARE
+    r RECORD;
+BEGIN
+    FOR r IN (SELECT datname FROM pg_database where datname like 'test%') LOOP
+		PERFORM dblink_exec('port=5432 dbname=postgres', 'DROP DATABASE ' || r.datname);
+    END LOOP;
+END $$;
+```
+
 # Troubleshooting
 
 In case you are getting errors:
