@@ -1,14 +1,35 @@
 # Installation
 
+## Prerequisites
+
+```
+mkdir files
+chown -R 1000:1000
+```
+
+## Note
+
+In docker-compose.yaml file it is expected that teamcity is running behind load balancer.
+However if at the begining you are planning to access it directly (for example for setup or even run always without load balancer)
+then set TEAMCITY_HTTPS_PROXY_ENABLED to false in docker-compose.yaml
+
+## Install
+
+```
 docker-compose --project-name teamcity up -d
+```
 
 # Create more agent
 
+```
 docker-compose --project-name teamcity up -d --scale agent=5
+```
 
 # Update
 
+```
 docker-compose --project-name teamcity up -d --build --force-recreate
+```
 
 # JetBrains Docker images
 
@@ -40,7 +61,7 @@ DO $$ DECLARE
     r RECORD;
 BEGIN
     FOR r IN (SELECT datname FROM pg_database where datname like 'test%') LOOP
-		PERFORM dblink_exec('port=5432 dbname=postgres', 'DROP DATABASE ' || r.datname);
+        PERFORM dblink_exec('port=5432 dbname=postgres', 'DROP DATABASE ' || r.datname);
     END LOOP;
 END $$;
 ```
@@ -76,6 +97,10 @@ cat /opt/teamcity/logs/teamcity-server.log | grep Super
 
 
 # Change Log
+
+## 2022-09-06
+
+- upgrade version
 
 ## 2021-12-31
 

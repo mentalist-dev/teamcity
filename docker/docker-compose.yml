@@ -3,7 +3,7 @@ version: '3'
 services:
   teamcity:
     restart: unless-stopped
-    image: jetbrains/teamcity-server:2021.2.3
+    image: jetbrains/teamcity-server:2022.04.3
     container_name: teamcity-server
     environment:
       - TEAMCITY_HTTPS_PROXY_ENABLED=true
@@ -35,7 +35,7 @@ services:
 
   agent-docker:
     restart: unless-stopped
-    image: jetbrains/teamcity-agent:2021.2.3-linux-sudo
+    image: jetbrains/teamcity-agent:2022.04.3-linux-sudo
     environment:
       - SERVER_URL=http://teamcity:8111
       - DOCKER_IN_DOCKER=start
@@ -49,7 +49,7 @@ services:
 
   postgres:
     container_name: teamcity-postgres
-    image: postgres:14.1
+    image: postgres:14.5
     restart: unless-stopped
     environment:
       POSTGRES_USER: "admin"
@@ -58,7 +58,7 @@ services:
 
   pgadmin:
     container_name: teamcity-pgadmin
-    image: dpage/pgadmin4:6.3
+    image: dpage/pgadmin4:6.13
     restart: unless-stopped
     tty: true
     ports:
